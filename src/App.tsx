@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Authenticator } from "@aws-amplify/ui-react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import '@aws-amplify/ui-react/styles.css'
+import "@aws-amplify/ui-react/styles.css";
 
 const client = generateClient<Schema>();
 
@@ -19,8 +19,12 @@ function App() {
     client.models.Todo.create({ content: window.prompt("Todo content") });
   }
 
-  function deleteTodo(id: string) {
-    client.models.Todo.delete({ id });
+  // function deleteTodo(id: string) {
+  //   client.models.Todo.delete({ id });
+  // }
+
+  function updateTodo(id: string) {
+    client.models.Todo.update({ id, content: window.prompt("Todo content") });
   }
 
   return (
@@ -31,7 +35,7 @@ function App() {
           <button onClick={createTodo}>+ new</button>
           <ul>
             {todos.map((todo) => (
-              <li key={todo.id} onClick={() => deleteTodo(todo.id)}>
+              <li key={todo.id} onClick={() => updateTodo(todo.id)}>
                 {todo.content}
               </li>
             ))}
